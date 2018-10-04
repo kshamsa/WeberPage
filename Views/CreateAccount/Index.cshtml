@@ -1,0 +1,33 @@
+﻿@*This is what the data from the for will be binding too*@
+@model WeberPage.Models.Account
+
+@{
+}
+
+@*asp-action is what back end method will be called from the
+    Controller*@
+<form method="post" asp-action="CreateUser" class="form-horizontal">
+    <div class="form-group">
+        @*
+            This is where the data is being grabbed from
+            the "asp-for" tag helpers is what will
+            bind the data to the model
+        *@
+        <label asp-for="Username">Username: </label>
+        <input class="form-control" asp-for="Username" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password">Password: </label>
+        <input class="form-control" asp-for="Password" />
+    </div>
+
+    @*This validation form will check the values of the data passed in
+        it will throw if any errors are detected*@
+    <div class="form-group" asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <input type="submit" />
+    </div>
+
+</form>
