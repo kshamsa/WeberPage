@@ -15,6 +15,7 @@ namespace WeberPage.Controllers
     {
         private readonly WeberPageContext _context;
 
+        //Need to create a new database context in the constructor of the page
         public AccountsController(WeberPageContext context)
         {
             _context = context;
