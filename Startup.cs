@@ -62,7 +62,7 @@ namespace WeberPage
                 routes.MapRoute(
                     name: "default",
                     //template: "{controller=CreateAccount}/{action=OnGet}/{id?}");
-                    template: "{controller=CreateAccount}/{action=Index}");
+                    template: "{controller=LoginController}/{action=Index}");
             });
         }
     }

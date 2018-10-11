@@ -45,15 +45,15 @@ namespace WeberPage.Controllers
 
 
                     // Account doesn't exist.
-                    var emptyAccount = new Account();
+                    //var emptyAccount = new Account();
 
-                    emptyAccount.Username = account.Username;
-                    emptyAccount.Password = account.Password; 
+                    //emptyAccount.Username = account.Username;
+                    //emptyAccount.Password = account.Password; 
 
-                    _weberpagecontext.Account.Add(emptyAccount);
+                    _weberpagecontext.Account.Add(account);
                     _weberpagecontext.SaveChanges(); 
 
-
+                    //call the index method from the WeberHomePage controller
                     return RedirectToAction("Index", "WeberPageHome");
 
 

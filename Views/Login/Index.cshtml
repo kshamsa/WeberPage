@@ -1,0 +1,24 @@
+﻿@model WeberPage.Models.Account
+
+@{
+}
+<form method="post" asp-action="Login" class="form-horizontal">
+    <h1>Please Login to You Account:</h1>
+    <div class="form-group">
+
+        <label asp-for="Username">Username: </label>
+        <input class="form-control" asp-for="Username" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password">Password: </label>
+        <input class="form-control" asp-for="Password" />
+    </div>
+
+    <div class="form-group" asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <input type="submit" value="Login" />
+    </div>
+
+</form>
