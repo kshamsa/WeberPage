@@ -17,13 +17,17 @@ namespace WeberPage.Controllers
     public class WeberPageHomeController : Controller
     {
         private WeberPageContext _weberpagecontext;
-
+        public DateTime startOfWeek;
+        public int delta;
+        public DateTime endOfWeek;
 
         public WeberPageHomeController(WeberPageContext wpc)
         {
             _weberpagecontext = wpc;
-
-            
+            startOfWeek = DateTime.Today;
+            delta = DayOfWeek.Monday - startOfWeek.DayOfWeek;
+            startOfWeek = startOfWeek.AddDays(delta);
+            endOfWeek = startOfWeek.AddDays(7);
         }
 
         public IActionResult Index(string id)
@@ -41,11 +45,11 @@ namespace WeberPage.Controllers
             Shift shift = _weberpagecontext.Shift.Where(obj => obj.AccountId == ActiveUser.This.CurrentUser.Id)
                 .OrderByDescending(obj => obj.DateTimeClockedIn).FirstOrDefault();
 
-            DateTime startOfWeek = DateTime.Today;
-            int delta = DayOfWeek.Monday - startOfWeek.DayOfWeek;
+            startOfWeek = DateTime.Today;
+            delta = DayOfWeek.Monday - startOfWeek.DayOfWeek;
             startOfWeek = startOfWeek.AddDays(delta);
 
-            DateTime endOfWeek = startOfWeek.AddDays(7);
+            endOfWeek = startOfWeek.AddDays(7);
 
             if (shift == null)
             {
@@ -87,10 +91,15 @@ namespace WeberPage.Controllers
                 DateTimeClockedIn = DateTime.Now,
                 ClockedIn = true
             });
+            _weberpagecontext.SaveChanges();
 
             accountshift.DateTimeClockedIn = DateTime.Now;
-            accountshift.ShiftId = _weberpagecontext.Shift.Where(i => i.AccountId == accountshift.UserId).OrderByDescending(i => i.DateTimeClockedIn).First().Id;
+            accountshift.ShiftId = _weberpagecontext.Shift.Where(i => i.AccountId == accountshift.UserId)
+                  .OrderByDescending(i => i.DateTimeClockedIn).First().Id;
+
             accountshift.ClockedIn = true;
+            accountshift.Shifts = _weberpagecontext.Shift.Where(obj => obj.AccountId == ActiveUser.This.CurrentUser.Id &&
+             obj.DateTimeClockedIn > startOfWeek && obj.DateTimeClockedOut < endOfWeek).ToList();
 
             _weberpagecontext.SaveChanges();
 
@@ -109,6 +118,8 @@ namespace WeberPage.Controllers
                 
             accountshift.DateTimeClockedOut = DateTime.Now;
             accountshift.ClockedIn = false;
+            accountshift.Shifts = _weberpagecontext.Shift.Where(obj => obj.AccountId == ActiveUser.This.CurrentUser.Id &&
+                 obj.DateTimeClockedIn > startOfWeek && obj.DateTimeClockedOut < endOfWeek).ToList();
 
             _weberpagecontext.SaveChanges();
 

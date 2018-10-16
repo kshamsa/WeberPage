@@ -37,21 +37,27 @@
 <h2>Welcome to the Clock in Page!</h2>
 
 <div method="post" class="form-horizontal container backgroundColored">
-    <br/>
+    <br />
     <div class="row form-group">
         <div class="col-sm-6 col-sm-offset-1">
             <table>
-                <tr>
-                    <td>Clock In</td>
-                    <td>Clock out</td>
-                </tr>
-                @foreach (var item in Model.Shifts)
+
+                @if (Model.Shifts.Count > 0)
                 {
                     <tr>
-                        <td>@item.DateTimeClockedIn.ToString()</td>
-                        <td>@item.DateTimeClockedOut.ToString()</td>
+                        <td>Clock In</td>
+                        <td>Clock out</td>
                     </tr>
+
+                    foreach (var item in Model.Shifts)
+                    {
+                        <tr>
+                            <td>@item.DateTimeClockedIn.ToString()</td>
+                            <td>@item.DateTimeClockedOut.ToString()</td>
+                        </tr>
+                    }
                 }
+
             </table>
         </div>
     </div>
