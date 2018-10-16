@@ -33,7 +33,7 @@ namespace WeberPage
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddSession(); 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<WeberPageContext>(options =>
@@ -56,13 +56,17 @@ namespace WeberPage
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession(); 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     //template: "{controller=CreateAccount}/{action=OnGet}/{id?}");
-                    template: "{controller=LoginController}/{action=Index}");
+                    template: "{controller=Login}/{action=Index}");
+
+                /*routes.MapRoute(
+                    name: "login",
+                    template: "{controller=WeberPageHome}/{action=Index}/{id?}");*/
             });
         }
     }

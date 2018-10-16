@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WeberPage.Models;
+using System.Web;
+using System.Text;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
 
 namespace WeberPage.Controllers
 {
@@ -33,12 +37,26 @@ namespace WeberPage.Controllers
             if (String.IsNullOrWhiteSpace(account.Username) == false &&
                String.IsNullOrWhiteSpace(account.Password) == false)
             {
-                Account dbAccount = _weberpagecontext.Account.Where(o => o.Username == account.Username && o.Password == account.Password).SingleOrDefault();
+                //grab the actual model object that we are working with, account
+                //is a local copy that we made and not the real user object
+                Account dbAccount = _weberpagecontext.Account.Where(o => o.Username == account.Username
+                                                        && o.Password == account.Password).SingleOrDefault();
+
+                if(dbAccount != null)
+                {
+                    //Debug.WriteLine($"LoginController ID: {dbAccount.Id} Username: {dbAccount.Username}");
+
+                    //pass over the account ID to the new page
+                    return RedirectToAction("Index", "WeberPageHome", new { id = dbAccount.Id });
+                }
             }
 
-            int debug;
+            return View("Index", account);
+        }
 
-            return RedirectToAction("Index", "WeberPageHome");
+        public IActionResult CreateAccount()
+        {
+            return RedirectToAction("Index", "CreateAccount"); 
         }
     }
 }

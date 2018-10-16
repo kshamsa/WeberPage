@@ -1,24 +1,74 @@
 ﻿@model WeberPage.Models.Account
-
 @{
+    Layout = "~/Views/Shared/_UserLogin.cshtml";
 }
-<form method="post" asp-action="Login" class="form-horizontal">
-    <h1>Please Login to You Account:</h1>
-    <div class="form-group">
 
-        <label asp-for="Username">Username: </label>
-        <input class="form-control" asp-for="Username" />
+<style>
+    .backgroundColored {
+        border-style: solid;
+        background-color: whitesmoke;
+    }
+
+    .navbar {
+        background-color: purple;
+    }
+
+    body {
+        background-color: cornsilk;
+    }
+
+    header {
+        background-color: cornsilk; 
+    }
+</style>
+
+<head>
+    <!--this is needed for mobile formatting-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<br/>
+<h1>Welcome to the Weber Demonstration Page!</h1>
+<br/>
+<div method="post" class="form-horizontal container backgroundColored" >
+
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h1>Please Login to You Account:</h1>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Password">Password: </label>
-        <input class="form-control" asp-for="Password" />
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-2">
+            <div class="form-group has-error" asp-validation-summary="All"></div>
+        </div>
     </div>
 
-    <div class="form-group" asp-validation-summary="All"></div>
+    <form asp-action="Login">
+        <div class="row form-group">
+            <div class="col-sm-6 col-sm-offset-2">
+                <label asp-for="Username">Username: </label>
+                <input class="form-control" asp-for="Username" />
+            </div>
+        </div>
 
-    <div class="form-group">
-        <input type="submit" value="Login" />
+        <div class="row form-group">
+            <div class="col-sm-6 col-sm-offset-2">
+                <label asp-for="Password">Password: </label>
+                <input class="form-control" asp-for="Password" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-sm-6 col-sm-offset-2">
+                <input type="submit" value="Login" />
+            </div>
+        </div>
+    </form>
+
+    <div class="row form-group">
+        <form method="post" asp-action="CreateAccount" class="form-horizontal col-sm-6 col-sm-offset-2">
+            <input type="submit" value="Create Account" />
+        </form>
     </div>
-
-</form>
+</div>

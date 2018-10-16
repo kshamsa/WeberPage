@@ -1,1 +1,44 @@
-﻿<p>Hello world</p>
+﻿@model WeberPage.Models.Account
+
+<style>
+    .backgroundColored {
+        border-style: solid;
+        background-color: whitesmoke;
+    }
+
+    .navbar {
+        background-color: purple;
+    }
+
+    body {
+        background-color: cornsilk;
+    }
+
+    header {
+        background-color: cornsilk;
+    }
+</style>
+
+<head>
+    <!--this is needed for mobile formatting-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<br/>
+
+<div method="post" class="form-horizontal container backgroundColored">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h1>Hello @Model.Username, and welcome to this demostration Weber Page</h1>
+            <h2>Here is some information about Weber State University taken from its Wikipedia Page:</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h3>
+                Weber State University is a public university in Ogden, Utah, United States. It is a coeducational, publicly supported university offering professional, liberal arts and technical certificates, as well as associate's, bachelor's and master's degrees. Weber State University is accredited by the Northwest Commission on Colleges and Universities. Programs throughout the university are accredited as well.
+                The school was founded in 1889 as Weber Stake Academy, later changing names to Weber Academy, Weber Normal College, and Weber College. Weber College became a junior college in 1933, and in 1962 became Weber State College. It gained university status in 1991, when it was renamed to its current name of Weber State University.
+            </h3>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+﻿@model WeberPage.Models.ViewModel.AccountShift
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style>
+    .backgroundColored {
+        border-style: solid;
+        background-color: whitesmoke;
+    }
+
+    .navbar {
+        background-color: purple;
+    }
+
+    body {
+        background-color: cornsilk;
+    }
+
+    header {
+        background-color: cornsilk;
+    }
+
+    tr {
+        border-style: solid;
+    }
+
+    td {
+        border-style: solid;
+    }
+</style>
+
+
+<h1>Hello @Model.Username</h1>
+<h2>Welcome to the Clock in Page!</h2>
+
+<div method="post" class="form-horizontal container backgroundColored">
+    <br/>
+    <div class="row form-group">
+        <div class="col-sm-6 col-sm-offset-1">
+            <table>
+                <tr>
+                    <td>Clock In</td>
+                    <td>Clock out</td>
+                </tr>
+                @foreach (var item in Model.Shifts)
+                {
+                    <tr>
+                        <td>@item.DateTimeClockedIn.ToString()</td>
+                        <td>@item.DateTimeClockedOut.ToString()</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-sm-6 col-sm-offset-1">
+            <div>
+                @if (Model.ClockedIn == true)
+                {
+                    <form asp-action="PerformClockOut" method="post">
+                        <input class="form-control" asp-for="UserId" readonly />
+                        <br />
+                        <input class="form-control" asp-for="Username" readonly />
+                        <br />
+                        <input class="form-control" asp-for="ShiftId" readonly />
+                        <br />
+                        <input type="submit" value="Clock Out" />
+                    </form>
+                }
+                else
+                {
+                    <form asp-action="PerformClockIn" method="post">
+                        <input class="form-control" asp-for="UserId" readonly />
+                        <br />
+                        <input class="form-control" asp-for="Username" readonly />
+                        <br />
+                        <input type="submit" value="Clock In" />
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>

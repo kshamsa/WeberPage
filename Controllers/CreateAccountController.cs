@@ -43,20 +43,15 @@ namespace WeberPage.Controllers
                 if (fromDB == null)
                 {
 
-
-                    // Account doesn't exist.
-                    //var emptyAccount = new Account();
-
-                    //emptyAccount.Username = account.Username;
-                    //emptyAccount.Password = account.Password; 
-
                     _weberpagecontext.Account.Add(account);
-                    _weberpagecontext.SaveChanges(); 
+                    _weberpagecontext.SaveChanges();
+
+                    //Now that the account exists, grab it
+                    Account dbAccount = _weberpagecontext.Account.Where(o => o.Username == account.Username
+                                                      && o.Password == account.Password).SingleOrDefault();
 
                     //call the index method from the WeberHomePage controller
-                    return RedirectToAction("Index", "WeberPageHome");
-
-
+                    return RedirectToAction("Index", "WeberPageHome", new { id = dbAccount.Id });
                 }
                 else
                 {
@@ -71,6 +66,11 @@ namespace WeberPage.Controllers
                 ModelState.AddModelError("", "Emtpy Username and Password");
                 return View("Index", account);
             }
+        }
+
+        public IActionResult Login()
+        {
+            return RedirectToAction("Index", "Login");//, new { id = account.Id });
         }
     }
 }
